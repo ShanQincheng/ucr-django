@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.template.response import TemplateResponse
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
-from django.shortcuts import  render
+from django.shortcuts import render
 
 from .forms import UserRegistrationForm
 
@@ -28,27 +28,36 @@ def register(request: HttpRequest) -> HttpResponse:
     return TemplateResponse(request, "accounts/register.html", {"form": form})
 
 
-@require_http_methods(["POST"])
+@require_http_methods(["GET", "POST"])
 def login(request: HttpRequest) -> HttpResponse:
-    try:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-    except KeyError:
-        # Redisplay the computer homepage
-        return render(request, 'computers/home.html', {
-            'error_message': "Please fulfill the login form.",
-        })
-    else:
-        # credentials error
-        if user is None:
+    if request.method == "GET":
+        return render(request, 'accounts/login.html')
+
+    if request.method == "POST":
+        try:
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+        except KeyError:
             # Redisplay the computer homepage
             return render(request, 'computers/home.html', {
-                'error_message': "Login failed",
+                'error_message': "Please fulfill the login form.",
             })
+        else:
+            # credentials error
+            if user is None:
+                # Redisplay the computer homepage
+                return render(request, 'computers/home.html', {
+                    'error_message': "Login failed",
+                })
 
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the back button.
-        auth_login(request, user)
-        return HttpResponseRedirect(reverse('computers:home'))
+            # Always return an HttpResponseRedirect after successfully dealing
+            # with POST data. This prevents data from being posted twice if a
+            # user hits the back button.
+            auth_login(request, user)
+            return HttpResponseRedirect(reverse('computers:home'))
+
+    # Request method neither GET nor POST, return to homepage
+    return render(request, 'computers/home.html', {
+        'error_message': "Wrong request method",
+    })

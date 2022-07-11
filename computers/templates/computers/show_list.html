@@ -1,18 +1,4 @@
 <div class="mt-4 container-md" id="search-module">
-    {#      search operation     #}
-    <div class="row">
-{#        <form method="GET" action="{{route('index.rental')}}">#}
-        <form method="GET" action="">
-            <div class="input-group">
-{#                <input name="brand" type="search" class="form-control rounded" placeholder="Computer Band, like: Apple"#}
-{#                       value='{{request()->input('brand')}}' aria-label="Search" aria-describedby="search-addon" />#}
-                  <input name="brand" type="search" class="form-control rounded" placeholder="Computer Band, like: Apple"
-                       value='' aria-label="Search" aria-describedby="search-addon" />
-                <button type="submit" class="btn btn-outline-primary">search</button>
-            </div>
-        </form>
-    </div>
-
     <div class="row row-cols-3 text-center">
         {% if computer_list %}
             {% for computer in computer_list %}

@@ -1,6 +1,7 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, reverse
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 
 from .models import Computer
 
@@ -12,6 +13,7 @@ def home(request: HttpRequest) -> HttpResponse:
     return render(request, 'computers/home.html', {'computer_list': computers})
 
 
+@login_required(login_url='/accounts/login')
 @require_http_methods(["GET"])
 def detail(request: HttpRequest, computer_id: int) -> HttpResponse:
     try:

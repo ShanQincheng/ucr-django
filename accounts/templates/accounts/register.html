@@ -1,6 +1,8 @@
-{% extends "accounts/base.html" %}
+{% extends "base.html" %}
 {% block content %}
-    <div>
+    <div class="container mb-8">
+        <h1 class="display-1">Sign Up Now</h1>
+
         <form action="{% url 'accounts:register' %}" method="post">
           {% csrf_token %}
           <div class="mb-3">
@@ -16,7 +18,7 @@
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" name="password" class="form-control" id="exampleInputPassword1">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
 {% endblock content %}
