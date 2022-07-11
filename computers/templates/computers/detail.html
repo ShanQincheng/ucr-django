@@ -1,0 +1,33 @@
+{% extends "computers/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row row-cols-2">
+            <div class="col">
+                <img src = "{{computer.picture}}"
+                     class="img-fluid img-detail" alt = "{{computer.name}}">
+            </div>
+            <div class="col">
+                <p class="fs-1">{{computer.name}}</p>
+                <p class="fw-bolder pt-2">
+                    ${{computer.rent}} / hour
+                </p>
+                {% if computer.stocks > 0 %}
+                    <p class="fw-light pt-1">More than {{computer.stocks}} available</p>
+                {% else %}
+                    <p class="fw-bold pt-1 text-danger">Rent Out</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container pt-5">
+        <ul class="list-group">
+            <li class="list-group-item"><p class="fw-bolder">OS:</p> {{computer.os}}</li>
+            <li class="list-group-item"><p class="fw-bolder">Display Size:</p> {{computer.DISP_size}} inch</li>
+            <li class="list-group-item"><p class="fw-bolder">RAM:</p> {{computer.RAM}} GB</li>
+            <li class="list-group-item"><p class="fw-bolder">USB Port Number:</p> {{computer.USB_port_num}}</li>
+            <li class="list-group-item"><p class="fw-bolder">HDMI Port:</p> {{computer.HDMI_port}}</li>
+        </ul>
+
+    </div>
+{% endblock content %}
