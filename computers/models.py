@@ -16,3 +16,6 @@ class Computer(models.Model):
     def __str__(self):
         return self.name + " " + self.brand
 
+    def was_out_of_stock(self):
+        return self.stocks <= 0
+
